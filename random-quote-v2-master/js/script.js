@@ -1,10 +1,7 @@
 
 //variables
-// var quote;
-var source;
 var htmlString = '';
 var random;
-var outputDiv;
 var randomQuote;
 var timer;
 
@@ -15,7 +12,7 @@ function generateRandomNumber() {
   return random;
 }
 
-// random array selection and html string concatenation
+// random array selection
 function getRandomQuote() {
   randomNumber = generateRandomNumber();
   randomQuoteObject = quotes[random];
@@ -24,24 +21,8 @@ function getRandomQuote() {
 }
 
 
-// Print our random quote
-function printQuote() {
-  var ourQuoteObject = getRandomQuote();
 
-  htmlString =
-  '<p class="quote"> ' + ourQuoteObject.quote + '</p>' +
-  '<p class="source">' + ourQuoteObject.source + '</p>';
-
-  document.getElementById('quote-box').innerHTML = htmlString;
-  //var test = htmlString;
-  //return htmlString;
-}
-
-
-
-
-
-
+// random color selection
 function getRandomColor() {
 var letters = '0123456789ABCDEF';
 var color = '#';
@@ -52,23 +33,35 @@ return color;
 }
 
 
-document.body.style.background = getRandomColor();
+// random quote and color generation
+function printQuote() {
+  var ourQuoteObject = getRandomQuote();
 
-//var randomColor = document.querySelector("background-color");
-//var otherColor = getRandomColor();
-//document.body.style.background = otherColor;
-//if (document.getElementById('loadQuote').clicked = true)
+//html quote+source concatenation
+  htmlString =
+  '<p class="quote"> ' + ourQuoteObject.quote + '</p>' +
+  '<p class="source">' + ourQuoteObject.source + '</p>';
+
+//html inclusion and printing
+  document.getElementById('quote-box').innerHTML = htmlString;
+
+//function stored in a variable to get an unique random color
+  randomColor = getRandomColor();
+//random color background inclusion
+  document.body.style.background = randomColor;
+//random color button inclusion
+  document.getElementById('loadQuote').style.background = randomColor;
+}
+
+//display a quote as soon as page loads
+window.onload = printQuote();
 
 
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
-//Event listener, when a user clicks on load quote, a new color is shown
-document.getElementById('loadQuote').addEventListener("click", getRandomColor);
-
-
 
 //Add Timer To quote
 
-//timer = setInterval(printQuote, 5000);
+timer = setInterval(printQuote, 10000);
